@@ -1,0 +1,7 @@
+{
+    "cleanUrls": true,
+    "rewrites": [
+      { "source": "/api/(.*)", "destination": "https://mtbb-audit.up.railway.app/api/$1" }
+    ]
+  }
+  

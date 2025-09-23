@@ -1,0 +1,242 @@
+/* style.css – Full Visual Setup for MTBB Audit Tool */
+
+/* ========== THEME TOKENS ========== */
+:root {
+  --bg: #1f2937;
+  --fg: #f3f4f6;
+  --muted: #9ca3af;
+  --card: #111827;
+  --card-alt: #0f172a;
+  --border: #374151;
+  --accent: #7c3aed;
+
+  --ok: #10b981;
+  --warn: #f59e0b;
+  --bad: #ef4444;
+  --info: #3b82f6;
+
+  --shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+
+[data-theme="light"] {
+  --bg: #f9fafb;
+  --fg: #111827;
+  --muted: #4b5563;
+  --card: #ffffff;
+  --card-alt: #f3f4f6;
+  --border: #e5e7eb;
+  --accent: #7c3aed;
+
+  --ok: #059669;
+  --warn: #b45309;
+  --bad: #b91c1c;
+  --info: #2563eb;
+
+  --shadow: 0 6px 20px rgba(0,0,0,.08);
+}
+
+/* ========== GLOBAL ========== */
+html, body { height: 100%; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.5;
+  transition: background .2s ease, color .2s ease;
+}
+
+.hidden { display: none !important; }
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+h1 { margin: 0; font-size: 1.4rem; }
+
+/* Inputs / Buttons */
+input, select, button {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--fg);
+}
+
+input::placeholder { color: var(--muted); }
+
+button {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: transform .06s ease, filter .15s ease;
+}
+button:hover { filter: brightness(1.05); }
+button:active { transform: translateY(1px); }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--info);
+  outline-offset: 2px;
+}
+
+#themeToggle { width: 42px; height: 42px; display: grid; place-items: center; }
+
+/* ========== FORM ========== */
+#auditForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* ========== FEEDBACK ========== */
+#errorMessage {
+  padding: 0.9rem 1rem;
+  background: var(--bad);
+  color: #fff;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+}
+
+/* ========== TABS ========== */
+.tab-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1rem;
+}
+.tab-link {
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card-alt);
+  color: var(--fg);
+  transition: background .15s ease, border-color .15s ease;
+}
+.tab-link.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.tab-link:focus-visible {
+  outline: 2px solid var(--info);
+  outline-offset: 2px;
+}
+.tab-content { margin-top: 0.5rem; }
+
+/* ========== SECTION HEADS ========== */
+#snapshot h2, #grades h2, #insights h2 {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+/* ========== SNAPSHOT ========== */
+img#screenshotImg {
+  display: block;
+  max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card-alt);
+  box-shadow: var(--shadow);
+}
+#screenshotCaption { margin: 0.4rem 0 0; color: var(--muted); }
+
+.snapshot-metrics {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.snapshot-metrics p {
+  margin: 0;
+  background: var(--card);
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+/* ========== GRADES TAB ========== */
+#scoreCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.8rem;
+}
+
+/* Rendered classes from JS:
+   .grade-card, .grade-header, .grade-badge, .grade-score, .grade-tip,
+   .grade-subhead, .grade-sublist */
+.grade-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 6px solid var(--accent);
+  border-radius: 14px;
+  padding: 0.9rem;
+  box-shadow: var(--shadow);
+}
+
+.grade-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+.grade-badge {
+  display: inline-block;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--card-alt);
+  border: 1px solid var(--border);
+}
+.grade-score { font-size: 0.95rem; margin-top: 0.1rem; }
+.grade-tip { margin-top: 0.35rem; color: var(--muted); font-size: 0.92rem; }
+
+.grade-subhead { margin-top: 0.5rem; font-weight: 600; opacity: 0.9; }
+.grade-sublist ul { margin: 0.25rem 0 0; padding-left: 1.1rem; }
+.grade-sublist li { line-height: 1.35; opacity: 0.95; }
+
+/* ========== INSIGHTS TAB (Markdown) ========== */
+#insightsContent, #planContent {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  box-shadow: var(--shadow);
+}
+
+#insightsContent h1, #insightsContent h2, #insightsContent h3,
+#planContent h1, #planContent h2, #planContent h3 { margin-top: 1rem; }
+
+#insightsContent p, #planContent p { margin: 0.5rem 0; }
+#insightsContent ul, #planContent ul { margin: 0.5rem 0 0.5rem 1.25rem; }
+#insightsContent code, #planContent code {
+  background: var(--card-alt);
+  padding: 0.1rem 0.35rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+/* ========== PRINT (Export) ========== */
+@media print {
+  header, #auditForm, .tab-buttons { display: none !important; }
+  body { background: #fff; color: #000; }
+  .grade-card { break-inside: avoid; box-shadow: none; }
+  img#screenshotImg { box-shadow: none; }
+}

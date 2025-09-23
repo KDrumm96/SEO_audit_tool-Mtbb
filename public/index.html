@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MTBB Audit Tool</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔍 MTBB Audit Tool</h1>
+      <button id="themeToggle">☀️</button>
+    </header>
+
+    <section id="auditForm">
+      <input id="siteUrlInput" type="text" placeholder="Enter website URL" />
+      <select id="siteTypeSelect">
+        <option value="">Select Site Type</option>
+        <option value="b2b">B2B</option>
+        <option value="ecommerce">Ecommerce</option>
+        <option value="media">Media</option>
+      </select>
+      <button id="startButton">Run Audit</button>
+      <button id="exportButton">Export</button>
+    </section>
+
+    <section id="loadingSection" class="hidden">
+      <p>⏳ Running audit...</p>
+    </section>
+
+    <section id="errorMessage" class="hidden"></section>
+
+    <section id="resultsSection" class="hidden">
+      <div class="tab-buttons">
+        <button class="tab-link active" data-tab="snapshot">Snapshot</button>
+        <button class="tab-link" data-tab="grades">Grades</button>
+        <button class="tab-link" data-tab="insights">Mindly Insights</button>
+      </div>
+
+      <div id="snapshot" class="tab-content">
+        <h2>Site Snapshot</h2>
+        <img id="screenshotImg" src="assets/placeholder.svg" alt="Site Screenshot" />
+        <p id="screenshotCaption">Waiting for screenshot...</p>
+        <div class="snapshot-metrics">
+          <p>SEO Score: <span id="snapshotSEO">--</span></p>
+          <p>UX Score: <span id="snapshotUX">--</span></p>
+          <p>Performance: <span id="snapshotPerformance">--</span></p>
+        </div>
+      </div>
+
+      <div id="grades" class="tab-content hidden">
+        <h2>Grades</h2>
+        <div id="scoreCards"></div>
+      </div>
+
+      <div id="insights" class="tab-content hidden">
+        <h2>AI Recommendations</h2>
+        <div id="insightsContent"></div>
+        <div id="planContent"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Marked (CDN) for markdown rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Load ONLY the module entry; it imports gradesTab.js itself -->
+  <script type="module" src="audit-ui.js"></script>
+</body>
+</html>
