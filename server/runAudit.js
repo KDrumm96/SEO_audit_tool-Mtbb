@@ -1,6 +1,8 @@
 // /server/runAudit.js — crawl → screenshot → Lighthouse (median of 3) → PSI → signals → scoring
 'use strict';
 
+// --- make Chromium path explicit for both puppeteer & lighthouse ---
+const CHROME_PATH = process.env.CHROME_PATH || '/usr/bin/chromium'
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
@@ -77,8 +79,10 @@ function fieldPerformanceProxy(psiJson) {
 // ---------- Lighthouse median-of-3 ----------
 async function runLighthouseMedian(url) {
   const chrome = await launchChrome({
-    chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu', '--window-size=1366,768']
+    chromePath: CHROME_PATH,
+    chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu', '--window-size=1366,768'],
   });
+  
 
   const config =
     LH_FORM_FACTOR === 'desktop'
@@ -146,10 +150,19 @@ async function runAudit(targetUrl, siteType = 'base') {
 
   try {
     browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox','--disable-setuid-sandbox','--disable-dev-shm-usage','--ignore-certificate-errors','--window-size=1366,768'],
-      defaultViewport: VIEWPORT
+      headless: true,                          // or 'new'
+      executablePath: CHROME_PATH,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--ignore-certificate-errors',
+        '--window-size=1366,768',
+      ],
+      defaultViewport: VIEWPORT,
     });
+    
 
     try { pages = await crawlSite(targetUrl, MAX_PAGES, browser); } catch { pages = []; }
     if (!pages.length) {
