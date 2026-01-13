@@ -165,7 +165,7 @@ ${lhMd}
 
   try {
     const resp = await cohere.chat({
-      model: 'command-r-plus',
+      model: 'command',
       message,
       chatHistory: [{ role: 'SYSTEM', message: system }],
       temperature: 0.4,
